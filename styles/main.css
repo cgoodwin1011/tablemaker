@@ -1,0 +1,59 @@
+.my-color-scheme {
+  /* very-gray dark blue */
+  background-color: #3A424C; 
+  /* mid-blue */
+  color: #68A2E5;
+  /* light-blue-gray */
+  color: #9BB1CC;
+  /* dark-blue-gray */
+  color: #1E334C;
+  /* neutral-steel */
+  color: #748599; 
+}
+
+body {
+  background-color: #3A424C;
+  color: #EEEEEE; 
+  /* color: green; */
+  border-radius: 5px; 
+}
+
+#header-the {
+  padding: 25px 10px;
+  width: 80%;
+  margin: auto;
+  height: 100px;
+}
+
+#input {
+  width: 80%;
+  margin: auto;
+  padding: 25px 15px;
+  border: 1px black solid;
+}
+
+#logo {
+  /* display: inline-block; */
+  float: left;
+  width: 10%;
+  padding-top: 50px;
+  position: relative;
+  height: 75px;;
+  border: 1px white solid;
+}
+
+#output {
+  width: 80%;
+  margin: auto;
+  padding: 25px 15px;
+}
+
+td {
+  border: 1px black solid;
+  width: 25px;
+  height: 15px;
+}
+
+#wrapper {
+  background-color: #3A424C;
+}
