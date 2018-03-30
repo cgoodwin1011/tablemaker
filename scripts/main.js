@@ -21,10 +21,10 @@
 
   function makeTable(numRows, numCols) {
     var newTable = '<table>'
-    for (j = 0; j < numRows; j++) {
+    for (var j = 0; j < numRows; j++) {
       newTable += makeRow(numCols, j);
     }
-    newTable += "</table>"
+    newTable += "</table>";
     return newTable;
   }
 
@@ -32,3 +32,11 @@
     $("#formatted-HTML").append(tableHTML);
     $("#raw-HTML").text(tableHTML);
   }
+
+  function makeHeadInputRow(numCols) {
+    console.log("made it here")
+    var aRow = makeTable(1, numCols)
+    console.log(aRow)
+    $("#enter-column-labels").append(aRow);
+  }
+
