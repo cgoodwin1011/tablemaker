@@ -18,11 +18,37 @@ body {
   border-radius: 5px; 
 }
 
+#enter-column-labels {
+  padding: 15px;
+  overflow: auto;
+}
+
 #enter-table-structure {
   padding: 0;
   margin: 0;
-  box-sizing: default;
+  /* box-sizing: default; */
 }
+
+#formatted-HTML {
+  background-color:  #9BB1CC;
+  padding: 10px;
+}
+
+#formatted-HTML-holder {
+  width: 49%;
+  box-sizing: border-box;
+  float: right;
+  padding: 10px;
+  margin: 1px;
+  background-color: #3A424C;
+  border: 1px black solid;
+}
+
+.h-no-margin {
+  margin: 0;
+  padding: 0;
+}
+
 
 #header-the {
   padding: 10px 10px;
@@ -64,24 +90,18 @@ body {
   padding: 25px 15px;
 }
 
-#raw-HTML {
+#raw-HTML-holder {
   box-sizing: border-box;
-  width: 49%;
   float: left;
   padding: 10px;
-  margin:1px;
-  background-color:  #9BB1CC;
-  border: 1px black solid;
+  margin: 1px;
+  background-color: #3A424C;
+  border: 1px black solid;  width: 49%;
 }
 
-#formatted-HTML {
-  box-sizing: border-box;
-  width: 49%;
-  float: right;
+#raw-HTML {
+  background-color: #9BB1CC;
   padding: 10px;
-  margin: 1px;
-  background-color:  #9BB1CC;
-  border: 1px black solid;
 }
 
 #right-side {
@@ -95,13 +115,20 @@ body {
   margin: 0;
 }
 
-td {
+td, th {
   border: 1px black solid;
-  width: 25px;
+  width: 1in;
   height: 15px;
+  background-color: white;
 }
 
 
 #wrapper {
   background-color: #3A424C;
+}
+
+.radio-btn {
+  margin-left: 10px;
+  padding: 3px;
+  /* color: yellow; */
 }

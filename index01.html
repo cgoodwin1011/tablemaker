@@ -22,7 +22,7 @@
     rel="stylesheet">
   <!-- adding jQuery -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="scripts/main.js"></script>
+  <script src="scripts/main01.js"></script>
 
   <style>
 
@@ -46,29 +46,34 @@
     <div id="input">
       <div id="left-side">
         <form id="table-input">
-          <h2 id="enter-table-structure">Enter Table Structure</h2>
+          <h2 id="enter-table-structure" class="h-no-margin">Enter Table Structure</h2>
           <h4>Number of Rows:</h4>
             <input type="text" value='' id='count-row'>
           <h4>Number of Columns:</h4>
             <input type="text" value='' id='count-column'>
-          <h4>Are there column labels (i.e., a header row):</h4>
-            <input id="yesHeaders" name="colheaders" type="radio" value='unchecked'>Yes
-            <input id="noHeaders" name="colheaders" type="radio" value='checked'>No
+          <h4>Is there a row of column headers (i.e., a column labels):</h4>
+            <span class="radio-btn">Yes</span><input id="yesHeaders" name="colheaders" type="radio" value=''>
+            <span class="radio-btn">No</span><input id="noHeaders" name="colheaders" type="radio" value='' checked='checked'>
         </form>
       </div>
       <div id="right-side">
-          Enter column labels:
+          <h2 class="h-no-margin">Enter column labels:</h2>
           <!-- to be replaced with dynamic input panel -->
           <div id="enter-column-labels"></div>
       </div>
     </div>
     <div id="output">
-      <div id="raw-HTML">
+      <div id="raw-HTML-holder">
         <h3> the raw html</h3>
-
+        <div id="raw-HTML">
+          <!-- raw html goes here -->
+        </div>
       </div>
-      <div id="formatted-HTML">
+      <div id="formatted-HTML-holder">
         <h3> the formatted html</h3>
+        <div id="formatted-HTML">
+          <!-- formatted html goes here -->
+        </div>
       </div>
     </div>
 
@@ -80,7 +85,6 @@
       makeHeadInputRow(cols);
     </script>
   </div>
-
 
 </body>
 

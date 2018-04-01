@@ -1,55 +1,13 @@
-  // Initialize Firebase
-  // var config = {
-  //   apiKey: "AIzaSyCMw3ZMN5hu39Gz2m20Jk8mOB_08RasG6g",
-  //   authDomain: "mymehproject.firebaseapp.com",
-  //   databaseURL: "https://mymehproject.firebaseio.com",
-  //   projectId: "mymehproject",
-  //   storageBucket: "mymehproject.appspot.com",
-  //   messagingSenderId: "700669945958"
-  // };
-  // firebase.initializeApp(config);
-
-function makeRow(rowLength, rowNumber) {
-  var newRow = '<tr>';
-  for (i = 0; i < rowLength; i++) {
-    newRow += '<td id="r' + i + 'c' + rowNumber + '" class="r' + rowNumber + ' c' + i + '"></td>';
-  }
-  newRow += '</tr>';
-  return newRow;
-}
-
-function makeTable(numRows, numCols) {
-  var newTable = '<table>'
-  for (var j = 0; j < numRows; j++) {
-    newTable += makeRow(numCols, j);
-  }
-  newTable += "</table>";
-  return newTable;
-}
-
-function showTable(tableHTML) {
-  $("#formatted-HTML").append(tableHTML);
-  var formattedRawHTML = formatHTML(tableHTML); 
-  console.log(formattedRawHTML)
-  $("#raw-HTML").text(formattedRawHTML)
-  // append(formattedRawHTML, Text);
-}
-
-function makeHeadInputRow(numCols) {
-  // console.log("made it here")
-  var aRow = makeRow(numCols, 0)
-  // console.log(typeof aRow)
-  aRow = aRow.replace(/td/g, 'th');
-  aRow = aRow.replace(/r([0-9])/g,  'h$1');
-  // aRow = aRow.replace(/td/g, 'th');
-  // console.log(aRow);
-  $("#enter-column-labels").append(aRow);
-}
-
 function formatHTML(stringToFormat) {
-  // var stringToFormat = "<tr id='smith'><td>trala</td><td>do re me</td><td>fa so la ti</td><td>do doe dough</td></tr>"
+  var stringToFormat = "<tr id='smith'><td>trala</td><td>do re me</td><td>fa so la ti</td><td>do doe dough</td></tr>"
   var formattedString = '';
+  var insideTag = false;
+  var inOpenTag = false;
+  var inCloseTag = false;
   var grammarStack = [];
+
+  var curPos= 0;
+  //
 
   function buildTag(inString, position) {
     var returnTag = inString[position];
@@ -120,7 +78,10 @@ function formatHTML(stringToFormat) {
 
   // format contents of grammarStack as output string
   for (var i=0; i < grammarStack.length; i++) {
+    
     var start = (grammarStack[i].slice(0,3));
+    
+    
     switch(start) {
       case '<tr':
         for (spaces = 0; spaces < indentLevel*indentWidth; spaces++) {
