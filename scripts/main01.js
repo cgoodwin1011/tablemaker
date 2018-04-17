@@ -99,7 +99,7 @@ function formatHTML(stringToFormat) {
       var returnVal = buildString(stringToFormat, i);
     }
     //add some error checking code here
-    grammarStack.push('"'+returnVal[0]+'"');
+    grammarStack.push(returnVal[0]);
     i = returnVal[1]
   }
 
@@ -123,13 +123,15 @@ function formatHTML(stringToFormat) {
     var start = (grammarStack[i].slice(0,3));
     switch(start) {
       case '<tr':
+        grammarStack[i] = "'" + grammarStack[i]
         for (spaces = 0; spaces < indentLevel*indentWidth; spaces++) {
           grammarStack[i] = " "+grammarStack[i]  
         }
         indentLevel++;
-        grammarStack[i] += "'<br>'";
+        grammarStack[i] += "'<br>";
         break;
       case '<td':
+      grammarStack[i] = "'" + grammarStack[i];
         for (spaces = 0; spaces < indentLevel*indentWidth; spaces++) {
           grammarStack[i] = " "+grammarStack[i]  
         }
@@ -137,9 +139,9 @@ function formatHTML(stringToFormat) {
         break;
       case '</t':
         if (grammarStack[i].slice(0,4) == '</tr') {
-          grammarStack[i] += "'<br>'"
+          grammarStack[i] += "\n"
         } else if (grammarStack[i].slice(0,4) == '</td') {
-          grammarStack[i] += "'<br>'"
+          grammarStack[i] += "\n"
         }
         indentLevel--;
     }

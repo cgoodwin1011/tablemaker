@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Page Title</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- reset browser styles -->
+  <link rel="assets/stylesheet" type="text/css" media="screen" href="styles/reset.css" />
+  <link href="https://fonts.googleapis.com/css?family=Galada|Oleo+Script+Swash+Caps|Tulpen+One" rel="stylesheet">
+  <!-- bootstrap links -->
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+    crossorigin="anonymous">
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+    crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" media="screen" href="styles/main.css" />
+  <!-- liking into some common/popular google fonts, because -->
+  <link href="https://fonts.googleapis.com/css?family=Abril+Fatface|Comfortaa|Dancing+Script|Great+Vibes|Kaushan+Script|Lato|Lobster|Lobster+Two|Marck+Script|Monoton|Open+Sans|Playfair+Display|Roboto|Roboto+Mono|Roboto+Slab|Rozha+One|Sacramento|Shrikhand|Slabo+27px|Source+Code+Pro"
+    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet">
+  <!-- adding jQuery -->
+
+  <style>
+  </style>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="scripts/main03.js"></script>
+
+  <script>
+  </script>
+</head>
+
+<body>
+  <header id="header-the">
+    <div id="logo">
+      <img id="logo-image" src="images/logo-01.png" alt="Obnoxious logo here">
+    </div>
+    <div id="logo-name">
+      <span id="logo-table">table</span>
+      <span id="logo-Maker">Maker</span>
+    </div>
+    <div id="self-promotion-holder">
+      <div id="self-promotion">
+        <span id="logo-copy">There's not much that's more tedious than generating HTML tables. That's why there's
+          <em>table
+            <b>Maker</b>
+          </em>
+        </span>
+      </div>
+    </div>
+      <!-- <span id="logo-table">table</span>
+      <span id="logo-Maker">Maker</span>.</div> -->
+      <nav id="menu-main">menu items here</nav>
+  </header>
+  <div id="wrapper">
+    <div id="input">
+      <div id="left-side">
+        <form id="table-input">
+          <h2 id="enter-table-structure" class="h-no-margin">Enter Table Structure</h2>
+          <h4 id="number-of-rows">Number of Rows:</h4>
+          <input type="text" value='' id='count-row' size='4'>
+          <br>
+          <h4 id="number-of-cols">Number of Columns:</h4>
+          <input type="text" value='' id='count-column' size='4'>
+          <h4>Is there a row of column headers (i.e., a column labels):</h4>
+          <div id="radio-btn-holder">
+            <span class="radio-btn">Yes</span>
+            <input id="yesHeaders" name="colheaders" type="radio" value=''>
+            <span class="radio-btn">No</span>
+            <input id="noHeaders" name="colheaders" type="radio" value='' checked='checked'>
+          </div>
+          <input type="submit" class="gen-table" value="Generate Table">
+        </form>
+      </div>
+      <div id="right-side">
+        <h2 class="h-no-margin">Enter column labels:</h2>
+        <!-- to be replaced with dynamic input panel -->
+        <div id="enter-column-labels"></div>
+      </div>
+    </div>
+    <div id="output">
+      <div id="code-HTML-holder">
+        <h3> the html</h3>
+        <div id="code-HTML">
+          <!-- raw html goes here -->
+        </div>
+      </div>
+      <div id="wysiwyg-HTML-holder">
+        <h3> and what it should look like...</h3>
+        <div id="wysiwyg-HTML">
+          <!-- wysiwyg html goes here -->
+        </div>
+      </div>
+    </div>
+
+    <script>
+      var cols = 4;
+      var rows = 5;
+      $("#right-side").fadeTo(0, 0.1)
+
+      $("#count-column").on('blur', function () {
+        makeHeadInputRow($("#count-column").val());
+      })
+
+      $("#count-column").on('keyup', function () {
+        makeHeadInputRow($("#count-column").val());
+      })
+
+      $("#yesHeaders").on('click', function () {
+        $("#right-side").fadeTo(0, 1)
+      })
+
+      $("#noHeaders").on('click', function () {
+        $("#right-side").fadeTo(0, 0.1)
+      })
+
+      $("#table-input").submit(function () {
+        event.preventDefault();
+        console.log("submit clicked");
+        rows = $("#count-row").val();
+        cols = $("#count-column").val();
+        console.log(rows, cols)
+        $("#wysiwyg-HTML").html('')
+        var outputTable = makeTable(rows, cols);
+        showTable(outputTable);
+        showCode(outputTable);
+      });
+    </script>
+  </div>
+
+</body>
+
+</html>
