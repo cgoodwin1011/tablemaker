@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Page Title</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- reset browser styles -->
+  <link rel="assets/stylesheet" type="text/css" media="screen" href="styles/reset.css" />
+  <link href="https://fonts.googleapis.com/css?family=Galada|Oleo+Script+Swash+Caps|Tulpen+One" rel="stylesheet">
+  <!-- SKELETON -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css">
+  <link rel="stylesheet" href="Skeleton-2.0.4/css/normalize.css">
+  <link rel="stylesheet" href="Skeleton-2.0.4/css/skeleton.css">
+  <!-- bootstrap links -->
+  <!-- Latest compiled and minified CSS -->
+  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" -->
+  <!-- crossorigin="anonymous"> -->
+  <!-- Optional theme -->
+  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+    crossorigin="anonymous"> -->
+  <link rel="stylesheet" type="text/css" media="screen" href="styles/main.css" />
+  <!-- liking into some common/popular google fonts, because -->
+  <link href="https://fonts.googleapis.com/css?family=Abril+Fatface|Comfortaa|Dancing+Script|Great+Vibes|Kaushan+Script|Lato|Lobster|Lobster+Two|Marck+Script|Monoton|Open+Sans|Playfair+Display|Roboto|Roboto+Mono|Roboto+Slab|Rozha+One|Sacramento|Shrikhand|Slabo+27px|Source+Code+Pro"
+    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet">
+  <!-- adding jQuery -->
+
+  <style>
+  </style>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="scripts/main03.js"></script>
+
+  <script>
+  </script>
+</head>
+
+<body>
+  <header id="header-the" class="container">
+    <div id="header-row" class="row">
+      <div id="logo" class="one column">
+        <img id="logo-image" src="images/logo3.png" alt="Obnoxious logo here">
+      </div>
+      <div id="logo-name" class="two columns">
+        <span id="logo-table">table</span>
+        <span id="logo-Maker">Maker</span>
+      </div>
+      <div class="eight columns">
+        <span id="logo-copy">There's not much that's more tedious than generating HTML tables. That's why there's
+          <em>table
+            <b>Maker</b>
+          </em>
+        </span>
+      </div>
+    </div>
+    <div>
+    </div>
+    <div id="self-promotion-holder">
+      <div id="self-promotion">
+        
+      </div>
+    </div>
+    <nav id="menu-main">menu items here</nav>
+  </header>
+  <div id="wrapper" class="row">
+    <div id="left-side" class="three column">
+      <form id="table-input">
+        <h2 id="enter-table-structure" class="h-no-margin">Enter Table Structure</h2>
+        <input type="text" value='' id='count-row' size='4'>
+        <h4 id="number-of-rows">Number of Rows:</h4>
+        <input type="text" value='' id='count-column' size='4'>
+        <h4 id="number-of-cols">Number of Columns:</h4>
+        <input type="submit" class="gen-table" value="Generate Table">
+      </form>
+    </div>
+    <div id="right-side" class="eight column">
+      <div id="right-side-top" class="clearfix">
+        <label id="add-headers"> Add Headers:
+          <input id="count-headers" name="colheaders" type="checkbox" value=''>
+        </label>
+      </div>
+      <div id="header-space">
+        <h4 id="enter-column-labels-banner" class="h-no-margin">Enter column labels:</h4>
+        <!-- to be replaced with dynamic input panel -->
+        <div id="enter-column-labels"></div>
+      </div>
+    </div>
+
+    <div id="output">
+      <div id="code-HTML-holder">
+        <h3> the html</h3>
+        <div id="code-HTML">
+          <!-- raw html goes here -->
+        </div>
+      </div>
+      <div id="wysiwyg-HTML-holder">
+        <h3> and what it should look like...</h3>
+        <div id="wysiwyg-HTML">
+          <!-- wysiwyg html goes here -->
+        </div>
+      </div>
+    </div>
+
+    <script>
+      $(document).ready(function () {
+        var cols = 4;
+        var rows = 5;
+        $("#header-space").fadeTo(0, 0.5)
+
+        $("#count-column").on('blur', function () {
+          var header = makeHeadInputRow($("#count-column").val());
+          console.log(header)
+        })
+
+
+        // $("#count-column").on('keyup', function () {
+        //   makeHeadInputRow($("#count-column").val());
+        // })
+
+        $("#count-headers").on("change", function () {
+          if ($("#count-headers").is(':checked')) {
+            $("#header-space").fadeTo(0, 1);
+          } else {
+            $("#header-space").fadeTo(0, .5);
+          }
+        })
+
+        $("#table-input").submit(function () {
+          event.preventDefault();
+          rows = $("#count-row").val();
+          cols = $("#count-column").val();
+          $("#wysiwyg-HTML").html('')
+          var outputTable = makeTable(rows, cols);
+          showTable(outputTable);
+          showCode(outputTable);
+        });
+
+        var currentCell = null;
+
+        // handle clicks on spreadsheet...
+
+        $("#enter-column-labels").on('click', function (evt) {
+          // if ($("#enter-column-labels").attr("opacity") != 1) {
+          // todo TODO
+          if ($('input[name="colheaders"]:checked').val()) {
+            return;
+          }
+          var cellClicked = evt.target.id;
+
+          // if there's another activeCell currentCell, we need to kill it.
+          if (currentCell != cellClicked) {
+            // run clean up routine on old current box
+            if (cellClicked == 'current-box') {
+              //do nothing
+            } else if (currentCell == null) {
+              // do nothing
+            } else {
+              releasecurrentCell(currentCell, cellClicked);
+            }
+          }
+          if (cellClicked != 'current-box') {
+            currentCell = cellClicked;
+            if ($("#" + currentCell).html().length > 0) {
+              var existingHTML = $("#" + currentCell).html();
+              $("#" + cellClicked).html("<input id='current-box' type='text' value='" + existingHTML +
+                "'autofocus>")
+            } else {
+              $("#" + cellClicked).html("<input id='current-box' type='text' autofocus>")
+            }
+            // function() {
+            $('#current-box').focus();
+            // });
+          }
+        });
+      });
+
+      function releasecurrentCell(oldCellID, newCellID) {
+        var HtmlToBe = $("#current-box").val();
+        // console.log('$("#current-box").val() is ' + HtmlToBe)
+        $("#current-box").remove();
+        $("#" + oldCellID).html(HtmlToBe);
+      }
+    </script>
+  </div>
+
+</body>
+
+</html>

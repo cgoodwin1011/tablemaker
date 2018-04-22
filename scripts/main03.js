@@ -12,17 +12,22 @@
   // };
   // firebase.initializeApp(config);
 
+// makes a single row of a table
 function makeRow(rowLength, rowNumber) {
-  var newRow = '<tr>';
+  var newRow = '<tr id="r'+rowNumber+'">';
   for (i = 0; i < rowLength; i++) {
-    newRow += '<td id="r' + i + 'c' + rowNumber + '" class="r' + rowNumber + ' c' + i + '"></td>';
+    newRow += '<td id="r' + rowNumber + 'c' + i + '" class="r' + rowNumber + ' c' + i + '"></td>';
   }
   newRow += '</tr>';
   return newRow;
 }
 
+// makes a table by assembling rows
 function makeTable(numRows, numCols) {
-  var newTable = '<table>';
+  var newTable = '<table id="this-table">';
+  if ($("#enter-column-headers").val() != null) {
+     newTable += $("#enter-column-headers").val();
+  }
   for (var j = 0; j < numRows; j++) {
     newTable += makeRow(numCols, j);
   }
@@ -30,10 +35,12 @@ function makeTable(numRows, numCols) {
   return newTable;
 }
 
+// shows table as it is rendered -- i.e., how the code on the left should display
 function showTable(tableHTML) {
   $("#wysiwyg-HTML").append(tableHTML);
 }
 
+// draws the 'code' html in the right hand panel
 function showCode(tableHTML) { 
   var parsedHTML = buildParseStack(tableHTML);
   var codeStyleHTML = formatHTMLasCode(parsedHTML);
@@ -41,13 +48,17 @@ function showCode(tableHTML) {
   // append(formattedRawHTML, Text);
 }
 
+// makes a header row by calling makeRow() and subbing out IDs
 function makeHeadInputRow(numCols) {
   var aRow = makeRow(numCols, 0)
   aRow = aRow.replace(/td/g, 'th');
   aRow = aRow.replace(/r([0-9])/g,  'h$1');
   $("#enter-column-labels").html(aRow);
+  // console.log(aRow);
+  return aRow;
 }
 
+// extracts a tag from html
 function buildTag(inString, position) {
   var returnTag = inString[position];
 
@@ -70,6 +81,7 @@ function buildTag(inString, position) {
   return [returnTag, j-1]
 }
 
+// extracts text between tags
 function buildString(inString, position) {
   var j = position+1;
 
@@ -86,6 +98,7 @@ function buildString(inString, position) {
   return [returnString, j-1]
 }
 
+// joins rows/elements in array into a string.
 function joinStack(inStack) {
   var outString = '';
   for (m=0; m < inStack.length; m++) {
@@ -94,6 +107,7 @@ function joinStack(inStack) {
   return outString;
 }
 
+// returns sequence of html tags and content as an array
 function buildParseStack(inString) {
   var grammarStack = [];
   for (var i=0; i < inString.length; i++) {
@@ -111,6 +125,8 @@ function buildParseStack(inString) {
   return grammarStack;
 }
 
+// produces html that will display the code as code, in proper format, 
+// using parsed stacked as input.
 function formatHTMLasCode(parsedStack) {
   var formattedString = '';
   var indentLevel = 0;
