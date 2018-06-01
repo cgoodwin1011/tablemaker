@@ -3,7 +3,7 @@
 
 // Initialize Firebase
   // var config = {
-  //   apiKey: "AIzaSyCMw3ZMN5hu39Gz2m20Jk8mOB_08RasG6g",
+  //   apiKey: null,
   //   authDomain: "mymehproject.firebaseapp.com",
   //   databaseURL: "https://mymehproject.firebaseio.com",
   //   projectId: "mymehproject",
