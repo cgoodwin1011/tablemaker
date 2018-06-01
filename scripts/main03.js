@@ -22,9 +22,11 @@ function makeRow(rowLength, rowNumber) {
   return newRow;
 }
 
+// takes data from form to make
 // makes a table by assembling rows
 function makeTable(numRows, numCols) {
-  var newTable = '<table id="this-table">';
+  var tableName = $("#count-name").val();
+  var newTable = '<table id="'+tableName+'">';
   if ($("#enter-column-headers").val() != null) {
      newTable += $("#enter-column-headers").val();
   }
